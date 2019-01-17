@@ -1,6 +1,8 @@
 import axios from 'axios';
+import { getStorage, setStorage } from '../utils/storage';
 
 const REPO = 'hudidit/hudidit.github.io';
+const STORAGE_KEY = 'request_cache';
 
 export const requestGithub = ({
   path = 'issues',
@@ -8,7 +10,11 @@ export const requestGithub = ({
 } = {}) => {
   let url = `https://api.github.com/repos/${REPO}/${path}`;
   let accept = `application/vnd.github.v3.${type}`;
-  return axios.get(url, {
+
+  let cache: any = getStorage(STORAGE_KEY);
+  cache = cache ? JSON.parse(cache) : {};
+  
+  let req = axios.get(url, {
     headers: {
       Accept: accept
     },
@@ -24,4 +30,5 @@ export const requestGithub = ({
       return [];
     }
   });
+  return req;
 };
