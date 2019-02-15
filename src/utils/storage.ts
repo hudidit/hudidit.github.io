@@ -1,7 +1,27 @@
+// 在 Node 环境下不存在 localStorage
+let storage: any;
+
+if (typeof localStorage !== 'undefined') {
+  storage = localStorage;
+} else {
+  storage = {
+    data: {},
+    setItem(key = '', value = '') {
+      if (typeof value !== 'string') {
+        value = JSON.stringify(value);
+      }
+      this.data[key] = value;
+    },
+    getItem(key = '') {
+      return this.data[key];
+    }
+  };
+}
+
 export function setStorage (key = '', value = '') {
   try {
     if (key) {
-      localStorage.setItem(key, value);
+      storage.setItem(key, value);
     }
   } catch (e) {
     console.error('Cannot set localStorage in private mode.');
@@ -9,5 +29,5 @@ export function setStorage (key = '', value = '') {
 }
 
 export function getStorage (key = '') {
-  return localStorage.getItem(key);
+  return storage.getItem(key);
 }

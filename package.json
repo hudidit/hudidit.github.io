@@ -9,6 +9,9 @@
     "@types/node": "10.12.18",
     "@types/react": "16.7.18",
     "@types/react-dom": "16.0.11",
+    "@zeit/next-css": "^1.0.1",
+    "@zeit/next-less": "^1.0.1",
+    "@zeit/next-typescript": "^1.1.1",
     "axios": "^0.18.0",
     "babel-core": "7.0.0-bridge.0",
     "babel-eslint": "9.0.0",
@@ -38,6 +41,7 @@
     "jest-pnp-resolver": "1.0.1",
     "jest-resolve": "23.6.0",
     "mini-css-extract-plugin": "0.4.3",
+    "next": "^8.0.1",
     "optimize-css-assets-webpack-plugin": "5.0.1",
     "pnp-webpack-plugin": "1.1.0",
     "postcss-flexbugs-fixes": "4.1.0",
@@ -60,9 +64,12 @@
     "workbox-webpack-plugin": "3.6.3"
   },
   "scripts": {
-    "start": "node scripts/start.js",
-    "build": "node scripts/build.js",
-    "test": "node scripts/test.js"
+    "dev": "next",
+    "start": "next start",
+    "build": "next build",
+    "type-check": "tsc",
+    "test": "node scripts/test.js",
+    "export": "next export"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -116,7 +123,8 @@
   },
   "babel": {
     "presets": [
-      "react-app"
+      "next/babel",
+      "@zeit/next-typescript/babel"
     ]
   }
 }

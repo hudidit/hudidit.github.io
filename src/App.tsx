@@ -1,14 +1,18 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './markdown.css';
+import './index.css';
 import './App.css';
 import { getIssues } from './api';
-import './utils/link';
 
-class App extends Component {
+interface Props {
+  posts: any[]
+}
+
+class App extends Component<Props> {
   state = {
     posts: []
   }
+  
   componentDidMount() {
     getIssues().then(data => {
       this.setState({
@@ -17,7 +21,12 @@ class App extends Component {
     });
   }
   render() {
-    const { posts } = this.state;
+    let posts: any[] = [];
+    if (this.state.posts.length) {
+      posts = this.state.posts || [];
+    } else {
+      posts = this.props.posts || [];
+    }
     return (
       <div className="App">
         {posts.map((p: any) => {
@@ -27,7 +36,7 @@ class App extends Component {
             <div className="post-content" dangerouslySetInnerHTML={{__html: p.body_html}}></div>
             <div className="post-comment">
               <a href={p.html_url} target="_blank">
-                <img src="./github.png" />
+                <img src="/static/github.png" />
                 在 Github 上查看和发表评论
               </a>
             </div>
