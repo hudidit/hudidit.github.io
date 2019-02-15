@@ -11,6 +11,9 @@ cd next-blog
 echo -e '${YELLOW}Installing dependencies'
 npm install
 
+echo -e '${YELLOW}Building'
+npm run build
+
 echo -e '${YELLOW}Exporting HTML'
 npm run export
 
