@@ -24,3 +24,7 @@ yarn-error.log*
 
 # vscode
 .vscode
+
+# next.js
+.next
+out
